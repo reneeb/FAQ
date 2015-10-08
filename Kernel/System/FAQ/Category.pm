@@ -1741,6 +1741,7 @@ get user permission for a category
     my $PermissionString = $FAQObject->CheckCategoryUserPermission(
         CategoryID => '123',
         UserID     => 1,
+        Type       => 'rw',   # optional
     );
 
 Returns:
@@ -1765,7 +1766,7 @@ sub CheckCategoryUserPermission {
     }
 
     my $UserCategories = $Self->GetUserCategories(
-        Type   => 'ro',
+        Type   => $Param{Type} || 'ro',
         UserID => $Param{UserID},
     );
 
