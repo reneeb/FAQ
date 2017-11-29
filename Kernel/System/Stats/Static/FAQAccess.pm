@@ -11,6 +11,8 @@ package Kernel::System::Stats::Static::FAQAccess;
 use strict;
 use warnings;
 
+use DateTime;
+
 our @ObjectDependencies = (
     'Kernel::Config',
     'Kernel::System::FAQ',
@@ -134,13 +136,15 @@ sub Run {
     }
 
     # correct start day of month if entered wrong by user
-    my $StartDay = sprintf( "%02d", Days_in_Month( $Param{StartYear}, $Param{StartMonth} ) );
+    my $StartObject = DateTime->last_day_of_month( year => $Param{StartYear}, month => $Param{StartMonth} );
+    my $StartDay    = sprintf "%02d", $StartObject->day;
     if ( $Param{StartDay} < $StartDay ) {
         $StartDay = $Param{StartDay};
     }
 
     # correct end day of month if entered wrong by user
-    my $EndDay = sprintf( "%02d", Days_in_Month( $Param{EndYear}, $Param{EndMonth} ) );
+    my $EndObject = DateTime->last_day_of_month( year => $Param{EndYear}, month => $Param{EndMonth} );
+    my $EndDay    = sprintf "%02d", $EndObject->day;
     if ( $Param{EndDay} < $EndDay ) {
         $EndDay = $Param{EndDay};
     }
