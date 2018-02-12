@@ -1605,6 +1605,7 @@ sub FAQJournalGet {
     return if !$DBObject->Prepare(
         SQL   => $SQL,
         Limit => 200,
+        Bind  => \@Bind,
     );
 
     my @Data;
